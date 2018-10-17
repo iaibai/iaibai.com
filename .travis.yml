@@ -20,6 +20,17 @@ before_deploy:
   - zip -r9 /tmp/${TRAVIS_COMMIT}.zip . -x *.git* vendor/\*
 
 deploy:
+  - provider: s3
+    access_key_id: $ACCESSKEYID
+    secret_access_key: $SECRETACCESSKEY
+    bucket: static.iaibai.com
+    skip_cleanup: true
+    upload-dir: assets/production/build
+    local_dir: public/build
+    region: eu-west-1
+    on:
+      branch: master
+
   - provider: elasticbeanstalk
     access_key_id: $ACCESSKEYID
     secret_access_key:

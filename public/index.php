@@ -32,8 +32,8 @@ $mobileDevice = mobile_device();
 ?><!DOCTYPE HTML><html>
 	<head>
 		<title>Iain's Exciting Website</title>
-		<link rel="shortcut icon" href="favicon.png" />
-		<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+		<link rel="shortcut icon" href="http://static.iaibai.com/assets/production/build/favicon.png" />
+		<link rel="apple-touch-icon" href="http://static.iaibai.com/assets/production/build/apple-touch-icon.png"/>
 		<?php
 		if ( $mobileDevice )
 		{
@@ -47,7 +47,7 @@ $mobileDevice = mobile_device();
 			body
 			{
 				font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-				background: #333 url(bg.png);
+				background: #333 url(http://static.iaibai.com/assets/production/build/bg.png);
 			}
 			
 			#container
@@ -124,7 +124,7 @@ $mobileDevice = mobile_device();
 		<div id="container">
 		
 			<div id="header">
-				<img src="avatar.png" style="float:right">
+				<img src="http://static.iaibai.com/assets/production/build/avatar.png" style="float:right">
 				<h1>Iain's<br>Site</h1>
 			</div>
 
@@ -195,11 +195,11 @@ $mobileDevice = mobile_device();
 			
 		</div>
 
-		<script type="text/javascript" src="craps.js"></script>
-		<script type="text/javascript" src="smiley.js"></script>
-		<script type="text/javascript" src="bouncy_ball.js"></script>
-		<script type="text/javascript" src="alfy.js"></script>
-        <script src="http://static.iaibai.com/dice-roller/dice.js"></script>
+		<script type="text/javascript" src="http://static.iaibai.com/assets/production/build/craps.js"></script>
+		<script type="text/javascript" src="http://static.iaibai.com/assets/production/build/smiley.js"></script>
+		<script type="text/javascript" src="http://static.iaibai.com/assets/production/build/bouncy_ball.js"></script>
+		<script type="text/javascript" src="http://static.iaibai.com/assets/production/build/alfy.js"></script>
+        <script src="http://static.iaibai.com/assets/production/build/dice-roller/dice.js"></script>
 	
 	</body>
 </html>
