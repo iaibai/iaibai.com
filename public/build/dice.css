@@ -1,0 +1,7 @@
+.dice-roller .dice-results li.dice-result-tier-upper {
+    color: green;
+}
+
+.dice-roller .dice-results li.dice-result-tier-lower {
+    color: red;
+}
