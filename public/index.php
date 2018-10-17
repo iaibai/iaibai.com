@@ -199,7 +199,7 @@ $mobileDevice = mobile_device();
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/smiley.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/bouncy_ball.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/alfy.js"></script>
-        <script src="http://static.iaibai.com/assets/production/dice-roller/dice.js"></script>
+        <script src="http://static.iaibai.com/assets/production/dice.js"></script>
 	
 	</body>
 </html>
