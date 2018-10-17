@@ -8,6 +8,8 @@ sudo: enabled
 install:
   - composer install
 
-script:
-  - ./vendor/bin/phpunit
-  - ./vendor/bin/phpcs -n --standard=PSR2 --colors src/
+jobs:
+  include:
+    - stage: test
+      script: ./vendor/bin/phpunit
+    - script: ./vendor/bin/phpcs -n --standard=PSR2 --colors src/
