@@ -16,6 +16,9 @@ script:
   - ./vendor/bin/phpunit
   - ./vendor/bin/phpcs -n --standard=PSR2 --colors src/
 
+before_deploy:
+  - zip -r9 /tmp/${TRAVIS_COMMIT}.zip . -x *.git* vendor/\*
+
 deploy:
   provider: elasticbeanstalk
   access_key_id: $ACCESSKEYID
@@ -24,6 +27,8 @@ deploy:
   region: eu-west-1  
   app: "iaibai.co.uk"
   env: "iaibai-production"
+  zip_file: /tmp/${TRAVIS_COMMIT}.zip
+  skip_cleanup: true
   bucket_name: "elasticbeanstalk-eu-west-1-495135221592"
   on:
     branch: master
