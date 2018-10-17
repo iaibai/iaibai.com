@@ -29,3 +29,5 @@ deploy:
     env: iaibai-production
     zip_file: /tmp/${TRAVIS_COMMIT}.zip
     skip_cleanup: true
+    bucket_name: elasticbeanstalk-eu-west-1-495135221592
+
