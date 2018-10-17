@@ -9,6 +9,10 @@ cache:
   directories:
     - vendor
 
+branches:
+  only:
+    - master
+
 install:
   - composer install
 
