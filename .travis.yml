@@ -10,3 +10,4 @@ install:
 
 script:
   - ./vendor/bin/phpunit
+  - ./vendor/bin/phpcs -n --standard=PSR2 --colors src/
