@@ -24,10 +24,11 @@ deploy:
     access_key_id: $ACCESSKEYID
     secret_access_key:
       secure: $SECRETACCESSKEY
-    region: eu-west-1fdfdsfds 
+    region: eu-west-1 
     app: iaibai.co.uk
     env: iaibai-production
     zip_file: /tmp/${TRAVIS_COMMIT}.zip
     skip_cleanup: true
     bucket_name: elasticbeanstalk-eu-west-1-495135221592
-
+    on:
+      branch: master
