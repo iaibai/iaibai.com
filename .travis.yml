@@ -12,8 +12,6 @@ cache:
 install:
   - composer install
 
-jobs:
-  include:
-    - stage: test
-      script: ./vendor/bin/phpunit
-    - script: ./vendor/bin/phpcs -n --standard=PSR2 --colors src/
+script:
+  - ./vendor/bin/phpunit
+  - ./vendor/bin/phpcs -n --standard=PSR2 --colors src/
