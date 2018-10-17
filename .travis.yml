@@ -5,6 +5,10 @@ php:
 
 sudo: enabled
 
+cache:
+  directories:
+    - vendor
+
 install:
   - composer install
 
