@@ -47,3 +47,6 @@ deploy:
     bucket_name: elasticbeanstalk-eu-west-1-495135221592
     on:
       branch: master
+
+after_deploy:
+  - aws s3 sync public/build s3://static.iaibai.com/assets/production
