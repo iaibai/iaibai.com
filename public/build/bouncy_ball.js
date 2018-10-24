@@ -32,11 +32,11 @@ function initBouncyBall( maxFps )
 	
 	bbBgImage = new Image();
 	bbBgImage.onload = bbDraw;
-	bbBgImage.src = 'https://static.iaibai.com/assets/production/bird_bg.png';
+	bbBgImage.src = 'http://static.iaibai.com/assets/production/bird_bg.png';
 	
 	bbImage = new Image();
 	bbImage.onload = bbDraw;
-	bbImage.src = 'https://static.iaibai.com/assets/production/ball.png';
+	bbImage.src = 'http://static.iaibai.com/assets/production/ball.png';
 
 	bbWallWidth = bbCanvas.width;
 	bbWallHeight = bbCanvas.height;
