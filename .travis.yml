@@ -26,8 +26,8 @@ before_deploy:
 
 deploy:
   - provider: s3
-    access_key_id: $ACCESSKEYID
-    secret_access_key: $SECRETACCESSKEY
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: static.iaibai.com
     skip_cleanup: true
     upload-dir: assets/production
@@ -37,9 +37,9 @@ deploy:
       branch: master
 
   - provider: elasticbeanstalk
-    access_key_id: $ACCESSKEYID
+    access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key:
-      secure: $SECRETACCESSKEY
+      secure: $AWS_SECRET_ACCESS_KEY
     region: eu-west-1 
     app: iaibai.co.uk
     env: iaibai-production
@@ -50,4 +50,4 @@ deploy:
       branch: master
 
 after_deploy:
-  - aws s3 sync public/build s3://static.iaibai.com/assets/production --delete 
+  - aws s3 sync public/build s3://static.iaibai.com/assets/production --delete
