@@ -54,11 +54,11 @@ function Alfy()
 	
 	this.bgImage = new Image();
 	this.bgImage.onload = function() { thisObj.draw(); };
-	this.bgImage.src = 'alfy_bg.png';
+	this.bgImage.src = 'https://static.iaibai.com/assets/production/alfy_bg.png';
 	
 	this.alfyImage = new Image();
 	this.alfyImage.onload = function() { thisObj.draw(); };
-	this.alfyImage.src = 'alfy_sprite.png';
+	this.alfyImage.src = 'https://static.iaibai.com/assets/production/alfy_sprite.png';
 }
 
 
