@@ -129,6 +129,13 @@ $mobileDevice = mobile_device();
 			</div>
 
             <div class="article">
+                <h2>Testing</h2>
+                <p>
+                    <div class="ftb-widget" data-id="16734" data-token="5EKU70AmqeQF7O4UexSrtw2NWOTiIoETyjQPDtwcC25ArcQpMZGNQ7nzTT7IV"></div>
+                </p>
+            </div>
+
+            <div class="article">
                 <h2>The Joy of Web Development</h2>
                 <p>I've just spent 2 hours trying to work out why my site's deployment was silently failing, only to discover it was silently working. I can now deploy to this (elastic beanstalk) app, using Travis CI.</p>
             </div>
@@ -200,6 +207,6 @@ $mobileDevice = mobile_device();
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/bouncy_ball.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/alfy.js"></script>
         <script src="http://static.iaibai.com/assets/production/dice.js"></script>
-	
+        <script src="https://static.freetobook.com/widget/testing/widget.js"></script>
 	</body>
 </html>
