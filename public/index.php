@@ -131,7 +131,7 @@ $mobileDevice = mobile_device();
             <div class="article">
                 <h2>Testing</h2>
                 <p>
-                    <div class="ftb-widget" data-id="16734" data-token="5EKU70AmqeQF7O4UexSrtw2NWOTiIoETyjQPDtwcC25ArcQpMZGNQ7nzTT7IV"></div>
+                    <div class="ftb-widget" data-id="37461" data-token="xXu15uie3BvORJWwgeefVwDl5c08pDZZ53KnkA26gqmQ3ucqgn0REMFWwhsib"></div><script src="https://widget.freetobook.com/widget.js"></script>
                 </p>
             </div>
 
@@ -207,6 +207,5 @@ $mobileDevice = mobile_device();
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/bouncy_ball.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/alfy.js"></script>
         <script src="http://static.iaibai.com/assets/production/dice.js"></script>
-        <script src="https://static.freetobook.com/widget/testing/widget.js"></script>
 	</body>
 </html>
