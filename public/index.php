@@ -129,6 +129,14 @@ $mobileDevice = mobile_device();
 			</div>
 
             <div class="article">
+                <h2>Reviews</h2>
+                <p>
+                <div class="ftb-widget" data-id="16734" data-token="5EKU70AmqeQF7O4UexSrtw2NWOTiIoETyjQPDtwcC25ArcQpMZGNQ7nzTT7IV" data-style="review-availability"></div>
+                <script src="https://widget.freetobook.com/testing/widget.js"></script>
+                </p>
+            </div>
+
+            <div class="article">
                 <h2>Testing</h2>
                 <p>
                 <div class="ftb-widget" data-id="16734" data-token="5EKU70AmqeQF7O4UexSrtw2NWOTiIoETyjQPDtwcC25ArcQpMZGNQ7nzTT7IV"></div>
