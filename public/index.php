@@ -129,6 +129,15 @@ $mobileDevice = mobile_device();
 			</div>
 
             <div class="article">
+                <h2>Inspiration Quotes</h2>
+                <p>Can you make multiple instances of the same app on the same page? Turns out you can! Maybe.</p>
+                <div class="quotes-widget"></div>
+                <div class="quotes-widget"></div>
+                <div class="quotes-widget"></div>
+                <script src="https://widget.freetobook.com/testing/widget.js"></script>
+            </div>
+
+            <div class="article">
                 <h2>Reviews</h2>
                 <p>
                 <div class="ftb-widget" data-id="16734" data-token="5EKU70AmqeQF7O4UexSrtw2NWOTiIoETyjQPDtwcC25ArcQpMZGNQ7nzTT7IV" data-style="review-availability"></div>
@@ -208,9 +217,9 @@ $mobileDevice = mobile_device();
 					</canvas>
 				</div>
 			</div>
-			
 		</div>
 
+        <script type="text/javascript" src="http://static.iaibai.com/assets/production/quotes/js/app.670f23b9.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/craps.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/smiley.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/bouncy_ball.js"></script>
