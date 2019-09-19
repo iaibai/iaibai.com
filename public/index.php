@@ -219,7 +219,7 @@ $mobileDevice = mobile_device();
 			</div>
 		</div>
 
-        <script type="text/javascript" src="http://static.iaibai.com/assets/production/quotes/js/app.22e7230b.js"></script>
+        <script type="text/javascript" src="http://static.iaibai.com/assets/production/quotes/js/quotes.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/craps.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/smiley.js"></script>
 		<script type="text/javascript" src="http://static.iaibai.com/assets/production/bouncy_ball.js"></script>
