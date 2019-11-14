@@ -129,6 +129,30 @@ $mobileDevice = mobile_device();
 			</div>
 
             <div class="article">
+                <h2>Test</h2>
+
+                <script>
+
+                    window.onUsersnapCXLoad = function(api) {
+
+                        api.init();
+
+                    }
+
+                    var script = document.createElement('script');
+
+                    script.async = 1;
+
+                    script.src = 'https://widget.usersnap.com/load/5ec206c8-6064-4e8c-97cc-dbb60ad0f99b?onload=onUsersnapCXLoad';
+
+                    document.getElementsByTagName('head')[0].appendChild(script);
+
+                </script>
+            </div>
+
+
+
+            <div class="article">
                 <h2>Inspiration Quotes</h2>
                 <p>Can you make multiple instances of the same app on the same page? Turns out you can! Maybe.</p>
                 <div class="quotes-widget"></div>
