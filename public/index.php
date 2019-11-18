@@ -131,22 +131,9 @@ $mobileDevice = mobile_device();
             <div class="article">
                 <h2>Test</h2>
 
-                <script>
-
-                    window.onUsersnapCXLoad = function(api) {
-
-                        api.init();
-
-                    }
-
-                    var script = document.createElement('script');
-
-                    script.async = 1;
-
-                    script.src = 'https://widget.usersnap.com/load/5ec206c8-6064-4e8c-97cc-dbb60ad0f99b?onload=onUsersnapCXLoad';
-
-                    document.getElementsByTagName('head')[0].appendChild(script);
-
+                <script type="text/javascript">
+                    (function() { var s = document.createElement("script"); s.type = "text/javascript"; s.async = true; s.src = '//api.usersnap.com/load/d016f092-2547-4390-a2cb-ab29088e7f87.js';
+                        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
                 </script>
             </div>
 
