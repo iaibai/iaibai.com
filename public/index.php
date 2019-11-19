@@ -129,12 +129,20 @@ $mobileDevice = mobile_device();
 			</div>
 
             <div class="article">
+                <h2>Feedback</h2>
+                <p>Feedback is always appreciated.</p>
+                
+                <!-- Appzi: Capture Insightful Feedback -->
+                <script async src="https://app.appzi.io/bootstrap/bundle.js?token=IU9Nz"></script>
+                <!-- End Appzi -->
+            </div>
+
+            <div class="article">
                 <h2>Inspiration Quotes</h2>
                 <p>Can you make multiple instances of the same app on the same page? Turns out you can! Maybe.</p>
                 <div class="quotes-widget"></div>
                 <div class="quotes-widget"></div>
                 <div class="quotes-widget"></div>
-                <script src="https://widget.freetobook.com/testing/widget.js"></script>
             </div>
 
             <div class="article">
