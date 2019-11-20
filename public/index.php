@@ -130,11 +130,9 @@ $mobileDevice = mobile_device();
 
             <div class="article">
                 <h2>Feedback</h2>
-                <p>Feedback is always appreciated.</p>
-                
-                <!-- Appzi: Capture Insightful Feedback -->
-                <script async src="https://app.appzi.io/bootstrap/bundle.js?token=IU9Nz"></script>
-                <!-- End Appzi -->
+                <p>Feedback is rarely appreciated.</p>
+
+                <!-- Mopinion Pastea.se  start --><script type="text/javascript">(function(){var id="3emb5gf1nsko295zsi88vv3iquzci8fwtbd";var js=document.createElement("script");js.setAttribute("type","text/javascript");js.setAttribute("src","//deploy.mopinion.com/js/pastease.js");document.getElementsByTagName("head")[0].appendChild(js);var t=setInterval(function(){try{new Pastease.load(id);clearInterval(t)}catch(e){}},50)})();</script><!-- Mopinion Pastea.se end -->
             </div>
 
             <div class="article">
