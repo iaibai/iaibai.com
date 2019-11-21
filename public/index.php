@@ -130,7 +130,7 @@ $mobileDevice = mobile_device();
 
             <div class="article">
                 <h2>Feedback</h2>
-                <p>Feedback is rarely appreciated.</p>
+                <p>Feedback is happily appreciated.</p>
 
                 <!-- Mopinion Pastea.se  start --><script type="text/javascript">(function(){var id="3emb5gf1nsko295zsi88vv3iquzci8fwtbd";var js=document.createElement("script");js.setAttribute("type","text/javascript");js.setAttribute("src","//deploy.mopinion.com/js/pastease.js");document.getElementsByTagName("head")[0].appendChild(js);var t=setInterval(function(){try{new Pastease.load(id);clearInterval(t)}catch(e){}},50)})();</script><!-- Mopinion Pastea.se end -->
             </div>
