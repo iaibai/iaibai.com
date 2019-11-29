@@ -1,9 +1,7 @@
-language: php
+language: node_js
 
-php:
-  - '7.1'
-
-sudo: enabled
+node_js:
+  - 12
 
 branches:
   only:
