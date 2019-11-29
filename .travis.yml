@@ -5,49 +5,19 @@ php:
 
 sudo: enabled
 
-cache:
-  directories:
-    - vendor
-
 branches:
   only:
     - master
 
-install:
-  - composer install
-
 script:
-  - ./vendor/bin/phpunit
-  - ./vendor/bin/phpcs -n --standard=PSR2 --colors src/
-
-before_deploy:
-  - zip -r9 /tmp/${TRAVIS_COMMIT}.zip . -x *.git* vendor/\*
-  - pip install --user awscli
+  - echo "There are no tests."
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: static.iaibai.com
+    bucket: www.iaibai.com
     skip_cleanup: true
-    upload-dir: assets/production
-    local_dir: public/build
     region: eu-west-1
     on:
       branch: master
-
-  - provider: elasticbeanstalk
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key:
-      secure: $AWS_SECRET_ACCESS_KEY
-    region: eu-west-1 
-    app: iaibai.co.uk
-    env: iaibai-production
-    zip_file: /tmp/${TRAVIS_COMMIT}.zip
-    skip_cleanup: true
-    bucket_name: elasticbeanstalk-eu-west-1-495135221592
-    on:
-      branch: master
-
-after_deploy:
-  - aws s3 sync public/build s3://static.iaibai.com/assets/production --delete
