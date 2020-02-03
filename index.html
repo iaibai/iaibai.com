@@ -28,10 +28,30 @@
         <h1>Iain's Site</h1>
     </div>
 
+    <div class="article">
+        <h2>Timezone</h2>
+        <div>
+            Timezone: <span id="timezone-name"></span>
+        </div>
+        <script language="javascript">
+            function getTimezoneName() {
+                var d = new Date();
+                document.getElementById('timezone-name').innerText(d.getTimezoneOffset());
+            }
+            getTimezoneName();
+        </script>
+    </div>
 
     <div class="article">
         <h2>Test</h2>
-        <div class="ftb-widget" data-id="39178" data-token="DkkqHBh6cmKD8JYCtboYAQQj7AOHe4O2tg5rjr9hdqgdO5kzxIzYe5hkDhXaW"></div><script src="https://widget.freetobook.com/widget.js"></script>
+
+        <form action="https://portal-testing.freetobook.com/widget-redir" method="post">
+            <input type="hidden" name="stayLength" value="2">
+            <input type="hidden" name="checkIn" value="2020-02-15">
+            <input type="hidden" name="w_id" value="16734">
+            <input type="hidden" name="w_tkn" value="5EKU70AmqeQF7O4UexSrtw2NWOTiIoETyjQPDtwcC25ArcQpMZGNQ7nzTT7IV">
+            <button type="submit">Check Availability</button>
+        </form>
     </div>
 
     <div class="article">
