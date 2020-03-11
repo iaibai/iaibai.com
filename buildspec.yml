@@ -13,7 +13,3 @@ phases:
   post_build:
     commands:
       - echo built!
-artifacts:
-  files:
-    - '**/*'
-  base-directory: dist
