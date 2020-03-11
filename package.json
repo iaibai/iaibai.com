@@ -7,7 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Success: There are no tests!\" && exit 0"
+    "test": "echo \"Success: There are no tests!\" && exit 0",
+    "build": "echo \"Success: There's also nothing to build!\" && exit 0"
   },
   "repository": {
     "type": "git",
