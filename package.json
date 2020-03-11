@@ -1,0 +1,22 @@
+{
+  "name": "iaibai.com",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Success: There are no tests!\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iaibai/iaibai.com.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iaibai/iaibai.com/issues"
+  },
+  "homepage": "https://github.com/iaibai/iaibai.com#readme"
+}
