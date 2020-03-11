@@ -3,13 +3,12 @@ phases:
   install:
     commands:
       - npm install
-  pre_build:
-    commands:
-      - echo running unit tests
-      - npm run test
   build:
     commands:
-      - npm run build
+      - gatsby build
   post_build:
     commands:
       - echo built!
+artifacts:
+  files:
+    - public/**/*
