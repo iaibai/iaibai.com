@@ -10,5 +10,7 @@ phases:
     commands:
       - echo built!
 artifacts:
+  base-directory: public
   files:
-    - public/**/*
+    - '**/*'
+  discard-paths: yes
