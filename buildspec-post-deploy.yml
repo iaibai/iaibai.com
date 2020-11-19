@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo welcome to post deploy install!
+  build:
+    commands:
+      - echo welcome to post deploy commants
+  post_build:
+    commands:
+      - echo welcome to post deploy post build!

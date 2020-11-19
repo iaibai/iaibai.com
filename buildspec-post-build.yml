@@ -2,13 +2,13 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo welcome to post deploy install!
+      - echo welcome to post build install!
   build:
     commands:
-      - echo welcome to post deploy commants
+      - echo welcome to post build commants
   post_build:
     commands:
-      - echo welcome to post deploy post build!
+      - echo welcome to post build post build!
 artifacts:
   files:
     - '**/*'
