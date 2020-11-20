@@ -5,7 +5,7 @@ phases:
       - echo welcome to post deploy install!
   build:
     commands:
-      - echo welcome to post deploy commants
+      - aws s3 sync scripts s3://compare.iaibai.co.uk/assets/ftb/testing/build --only-show-errors --delete
   post_build:
     commands:
       - echo welcome to post deploy post build!
