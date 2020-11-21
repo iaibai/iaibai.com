@@ -6,6 +6,7 @@ phases:
   build:
     commands:
       - npm run test
+      - rm -rf ./node_modules
 artifacts:
   files:
     - '**/*'
