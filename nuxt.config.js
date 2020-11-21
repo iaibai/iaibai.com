@@ -1,4 +1,8 @@
 export default {
+  server: {
+    port: process.env.PORT || 80
+  },
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'iaibai.com',
