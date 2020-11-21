@@ -1,0 +1,387 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Nuxt application hosted on ElasticBeanstalk deployed through CodePipeline
+
+Parameters:
+
+  # We need to create a Key for the EC2 instances.
+  # Key Pairs section under the NETWORK & SECURITY section on the left main menu.
+  # Then create a Key Pair choosing “pem” option.
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the AWS Elastic Beanstalk instance
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2
+
+  # This lets CodePipeline pull the code. Get it in GitHub user settings -> Developer Settings -> Personal Access Tokens.
+  # The token only needs the 'repo' permissions.
+  GitHubOAuthToken:
+    Description: GitHub Personal Access token with access to the following repository
+    Type: String
+    NoEcho: true
+    MinLength: 40
+    MaxLength: 40
+    AllowedPattern: '[a-z0-9]*'
+
+  GitHubOwner:
+    Description: The owner of the Github repo for this app
+    Type: String
+    AllowedPattern: "[A-Za-z0-9-]+"
+
+  GitHubRepo:
+    Description: The GitHub repository containing the code
+    Type: String
+    AllowedPattern: "[A-Za-z0-9-\\.]+"
+
+  GitHubBranch:
+    Description: CodePipeline is triggered automatically by pushes to this branch
+    Type: String
+    Default: main
+    AllowedPattern: "[A-Za-z0-9-]+"
+
+Mappings:
+
+  Region2Principal:
+    us-east-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    us-west-2:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    us-west-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    eu-west-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    eu-west-2:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    eu-west-3:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    ap-southeast-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    ap-northeast-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    ap-northeast-2:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    ap-northeast-3:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    ap-southeast-2:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    ap-south-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    us-east-2:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    ca-central-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    sa-east-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    cn-north-1:
+      EC2Principal: ec2.amazonaws.com.cn
+      OpsWorksPrincipal: opsworks.amazonaws.com.cn
+    cn-northwest-1:
+      EC2Principal: ec2.amazonaws.com.cn
+      OpsWorksPrincipal: opsworks.amazonaws.com.cn
+    eu-central-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+    eu-north-1:
+      EC2Principal: ec2.amazonaws.com
+      OpsWorksPrincipal: opsworks.amazonaws.com
+
+Resources:
+  # CodePipeline needs an S3 bucket when it's deploying
+  PipelineArtifactsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+
+  CodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Type: S3
+        Location: !Ref PipelineArtifactsBucket
+      RestartExecutionOnUpdate: true
+      RoleArn: !GetAtt CodePipelineRole.Arn
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: Source
+              InputArtifacts: []
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Version: 1
+                Provider: GitHub
+              OutputArtifacts:
+                - Name: SourceCode
+              Configuration:
+                Owner: !Ref GitHubOwner
+                Repo: !Ref GitHubRepo
+                Branch: !Ref GitHubBranch
+                PollForSourceChanges: false
+                OAuthToken: !Ref GitHubOAuthToken
+              RunOrder: 1
+        - Name: Build
+          Actions:
+            - Name: CodeBuild
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: '1'
+              InputArtifacts:
+                - Name: SourceCode
+              OutputArtifacts:
+                - Name: BuildOutput
+              Configuration:
+                ProjectName: !Ref BuildProject
+              RunOrder: 1
+        - Name: Deploy
+          Actions:
+            - Name: Deploy
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: ElasticBeanstalk
+                Version: '1'
+              InputArtifacts:
+                - Name: BuildOutput
+              Configuration:
+                ApplicationName:
+                  Ref: BeanstalkApplication
+                EnvironmentName:
+                  Ref: BeanstalkEnvironment
+
+  # 'GithubWebhook' satisfies two requirements:
+  # -- Means that updates are pushed from GitHub, rather than AWS having to poll
+  # -- Means we can filter for required changes
+  GithubWebhook:
+    Type: 'AWS::CodePipeline::Webhook'
+    Properties:
+      Authentication: GITHUB_HMAC
+      AuthenticationConfiguration:
+        SecretToken: !Ref GitHubOAuthToken
+      RegisterWithThirdParty: 'true'
+      Filters:
+        - JsonPath: "$.ref"
+          MatchEquals: refs/heads/{Branch}
+      TargetPipeline: !Ref CodePipeline
+      TargetAction: Source
+      TargetPipelineVersion: !GetAtt CodePipeline.Version
+
+  BuildProject:
+    Type: "AWS::CodeBuild::Project"
+    Properties:
+      Name: !Sub "${AWS::StackName}-codebuild"
+      Description: "Build and run tests."
+      Source:
+        BuildSpec: "buildspec.yml"
+        Type: "CODEPIPELINE"
+      Artifacts:
+        Type: "CODEPIPELINE"
+      Environment:
+        ComputeType: "BUILD_GENERAL1_SMALL"
+        EnvironmentVariables:
+          - Name: "ENVIRONMENT"
+            Type: "PLAINTEXT"
+            Value: "testing"
+        Image: "aws/codebuild/standard:4.0"
+        ImagePullCredentialsType: "CODEBUILD"
+        PrivilegedMode: false
+        Type: "LINUX_CONTAINER"
+      ServiceRole: !GetAtt CodebuildRole.Arn
+      TimeoutInMinutes: 60
+      QueuedTimeoutInMinutes: 480
+      LogsConfig:
+        CloudWatchLogs:
+          Status: "ENABLED"
+
+  CodePipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+        Version: '2012-10-17'
+      Path: /
+      Policies:
+        - PolicyName: CodePipelineAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                  - 's3:*'
+                  - 'cloudformation:CreateStack'
+                  - 'cloudformation:DescribeStacks'
+                  - 'cloudformation:DeleteStack'
+                  - 'cloudformation:UpdateStack'
+                  - 'cloudformation:CreateChangeSet'
+                  - 'cloudformation:ExecuteChangeSet'
+                  - 'cloudformation:DeleteChangeSet'
+                  - 'cloudformation:DescribeChangeSet'
+                  - 'cloudformation:SetStackPolicy'
+                  - 'iam:PassRole'
+                  - 'codebuild:BatchGetBuilds'
+                  - 'codebuild:StartBuild'
+                  - 'codebuild:BatchGetBuildBatches'
+                  - 'codebuild:StartBuildBatch'
+                  - 'elasticbeanstalk:*'
+                  - 'cloudformation:*'
+                  - "ec2:*"
+                  - "elasticloadbalancing:*"
+                  - "autoscaling:*"
+                  - "cloudwatch:*"
+                  - "s3:*"
+                  - "sns:*"
+                  - "rds:*"
+                  - "sqs:*"
+                  - "ecs:*"
+                Effect: Allow
+                Resource: '*'
+
+  CodebuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: codebuild.amazonaws.com
+          Action: sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub "${AWS::StackName}-codebuild-policy"
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "arn:aws:logs:*:*:*"
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                Resource:
+                  - !Sub "arn:aws:s3:::${PipelineArtifactsBucket}/*"
+              - Effect: Allow
+                Action:
+                  - ssm:GetParametersByPath
+                  - ssm:GetParameters
+                  - ssm:GetParameter
+                Resource:
+                  - !Sub "arn:aws:ssm:*:${AWS::AccountId}:parameter/*"
+              - Effect: Allow
+                Action:
+                  - s3:GetAccessPoint
+                  - s3:GetAccountPublicAccessBlock
+                  - s3:ListAllMyBuckets
+                  - s3:ListAccessPoints
+                  - s3:ListJobs
+                  - s3:CreateJob
+                  - s3:HeadBucket
+                Resource:
+                  - '*'
+
+  WebServerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - Fn::FindInMap:
+                    - Region2Principal
+                    - Ref: AWS::Region
+                    - EC2Principal
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+
+  WebServerRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: WebServerRole
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            NotAction: iam:*
+            Resource: "*"
+      Roles:
+        - Ref: WebServerRole
+
+  WebServerInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+        - Ref: WebServerRole
+
+  # The app that hosts the website
+  BeanstalkApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      Description: AWS Elastic Beanstalk Sample Node.js Application
+
+  # By default, it will install the Elastic Beanstalk Nodejs sample application.
+  BeanstalkApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    Properties:
+      Description: Version 1.0
+      ApplicationName:
+        Ref: BeanstalkApplication
+      SourceBundle:
+        S3Bucket:
+          Fn::Join:
+            - "-"
+            - - elasticbeanstalk-samples
+              - Ref: AWS::Region
+        S3Key: nodejs-sample.zip
+
+  ConfigurationTemplate:
+    Type: AWS::ElasticBeanstalk::ConfigurationTemplate
+    Properties:
+      ApplicationName:
+        Ref: BeanstalkApplication
+      Description: !Sub "${AWS::StackName} Node.js Application Configuration Template"
+      SolutionStackName: 64bit Amazon Linux 2 v5.2.3 running Node.js 12
+      OptionSettings:
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: EC2KeyName
+          Value:
+            Ref: KeyName
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: IamInstanceProfile
+          Value:
+            Ref: WebServerInstanceProfile
+
+  BeanstalkEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      Description: !Sub "${AWS::StackName} Node.js Application"
+      ApplicationName:
+        Ref: BeanstalkApplication
+      TemplateName:
+        Ref: ConfigurationTemplate
+      VersionLabel:
+        Ref: BeanstalkApplicationVersion
