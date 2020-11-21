@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
-    "start": "nuxt-ts start",
+    "start": "nuxt-ts start --port $PORT",
     "generate": "nuxt-ts generate",
     "test": "jest"
   },
